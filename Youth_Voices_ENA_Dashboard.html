@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapping Youth Voices - UNESCO ENA Regional Consultation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink: #001455;
+  --ink-soft: rgba(0, 20, 85, 0.7);
+  --paper: #fffafa;
+  --paper-raised: #ffffff;
+  --line: rgba(0, 20, 85, 0.14);
+  --line-strong: rgba(0, 20, 85, 0.28);
+  --teal: #3E7C7F;
+  --teal-soft: #DCE8E5;
+  --amber: #C98A2B;
+  --amber-soft: #F3E3C4;
+  --brick: #B14B3F;
+  --brick-soft: #F1DCD7;
+  --shadow: 0 1px 2px rgba(0,20,85,0.06), 0 8px 24px rgba(0,20,85,0.06);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter', sans-serif;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+
+.hero{
+  position:relative;
+  padding:76px 0 54px;
+  border-bottom:1px solid var(--line);
+  overflow:hidden;
+  background:
+    radial-gradient(1200px 480px at 82% -10%, rgba(62,124,127,0.10), transparent 60%),
+    radial-gradient(900px 420px at -5% 110%, rgba(201,138,43,0.10), transparent 60%);
+}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--teal);
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:22px;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--teal);display:inline-block;}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.15fr 0.85fr;
+  gap:48px;
+  align-items:center;
+}
+h1.title{
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:clamp(36px,4.4vw,58px);
+  line-height:1.03;
+  letter-spacing:-0.01em;
+  margin:0 0 20px;
+}
+h1.title em{font-style:italic;font-weight:500;color:var(--teal);}
+.hero-sub{
+  font-size:16.5px;
+  color:var(--ink-soft);
+  max-width:52ch;
+  margin:0 0 28px;
+}
+.hero-stats{
+  display:flex;
+  gap:28px;
+  flex-wrap:wrap;
+}
+.stat{min-width:88px;}
+.stat .num{font-family:'Inter',sans-serif;font-size:30px;font-weight:600;color:var(--ink);}
+.stat .lbl{font-size:12px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
+
+.compass-card{
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:4px;
+  padding:22px 22px 14px;
+  box-shadow:var(--shadow);
+}
+.compass-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--ink-soft);
+  margin-bottom:4px;
+}
+.compass-caption{font-size:12.5px;color:var(--ink-soft);margin-top:6px;}
+.compass-svg{display:block;width:100%;height:auto; max-width: 360px;}
+.compass-seg{transition:opacity .15s;cursor:pointer;}
+.compass-seg:hover{opacity:0.72;}
+
+.topnav{
+  position:sticky;top:0;z-index:40;
+  background:rgba(255,250,250,0.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.topnav-inner{
+  max-width:1180px;margin:0 auto;padding:0 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:56px;
+}
+.brand{font-family:'Inter',sans-serif;font-weight:600;font-size:16px;}
+.navlinks{display:flex;gap:22px;}
+.navlinks a{
+  font-size:13px;color:var(--ink-soft);text-decoration:none;
+  font-weight:500;
+  border-bottom:1px solid transparent;
+  padding-bottom:2px;
+}
+.navlinks a:hover{color:var(--ink);border-bottom-color:var(--teal);}
+.glossary-btn{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;
+  background:var(--ink);
+  color:var(--paper);
+  border:none;
+  padding:8px 14px;
+  border-radius:3px;
+  cursor:pointer;
+  letter-spacing:.03em;
+}
+.glossary-btn:hover{background:var(--teal);}
+
+section.block{padding:56px 0;}
+section.block.alt{background:var(--paper-raised);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.block-head{max-width:640px;margin-bottom:36px;}
+.block-eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--teal);margin-bottom:10px;
+}
+h2.block-title{font-family:'Inter',sans-serif;font-weight:600;font-size:30px;margin:0 0 10px;letter-spacing:-.01em;}
+.block-desc{color:var(--ink-soft);font-size:15px;max-width:60ch;}
+
+.overview-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;}
+.bars{display:flex;flex-direction:column;gap:9px;}
+.bar-row{display:grid;grid-template-columns:150px 1fr 34px;align-items:center;gap:10px;font-size:13px;}
+.bar-row .lbl{color:var(--ink-soft);}
+.bar-track{height:9px;background:var(--line);border-radius:2px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:2px;}
+.bar-row .val{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);text-align:right;}
+
+.section-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.section-tab{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  padding:9px 16px;
+  border:1px solid var(--line-strong);
+  border-radius:20px;
+  background:var(--paper);
+  cursor:pointer;
+  color:var(--ink-soft);
+  letter-spacing:.02em;
+}
+.section-tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.section-tab .count{opacity:.65;margin-left:6px;}
+
+.section-dashboard {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.qcard{
+  border:1px solid var(--line);
+  border-radius:4px;
+  background:var(--paper-raised);
+  margin-bottom:14px;
+  overflow:hidden;
+}
+.qhead{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;
+  padding:18px 22px;
+  cursor:pointer;
+}
+.qhead:hover{background:rgba(0,20,85,0.03);}
+.qnum{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--teal);
+  margin-bottom:6px;display:block;
+}
+.qtext{font-family:'Inter',sans-serif;font-size:18px;font-weight:600;line-height:1.3;}
+.qmeta{display:flex;align-items:center;gap:14px;flex-shrink:0;}
+.qmeta .n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);white-space:nowrap;}
+.chevron{
+  width:22px;height:22px;border:1px solid var(--line-strong);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--ink-soft);
+  transition:transform .2s;
+  flex-shrink:0;
+}
+.qcard.open .chevron{transform:rotate(45deg);}
+
+.qbody{display:none;padding:0 22px 24px;}
+.qcard.open .qbody{display:block;}
+.qdomain-bar{display:flex;height:8px;border-radius:2px;overflow:hidden;margin:2px 0 22px;border:1px solid var(--line);}
+.qdomain-seg{height:100%;}
+.qdomain-legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin-bottom:22px;}
+.qdomain-legend span{font-size:11.5px;color:var(--ink-soft);display:flex;align-items:center;gap:6px;}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+
+.domain-group { margin-bottom: 24px; border-left: 2px solid var(--line); padding-left: 16px; }
+.domain-group-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'IBM Plex Mono', monospace;}
+
+.cards-col{display:flex;flex-direction:column;gap:12px;}
+
+.icard{
+  border:1px solid var(--line);
+  border-left:3px solid var(--teal);
+  background:var(--paper);
+  border-radius:2px;
+  padding:16px 18px;
+}
+.icard.disagreement {
+  border-left: 3px solid var(--brick);
+  background: rgba(177, 75, 63, 0.05);
+}
+.icard .quote{
+  font-family:'Inter',sans-serif;
+  font-size:15px;
+  color:var(--ink);
+  line-height:1.5;
+  margin:0 0 12px;
+}
+.icard .quote::before{content:"\201C";}
+.icard .quote::after{content:"\201D";}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  padding:3px 9px;
+  border-radius:12px;
+  letter-spacing:.02em;
+  white-space:nowrap;
+}
+.tag.domain{background:var(--teal-soft);color:var(--teal);}
+.tag.rec{background:var(--amber-soft);color:#8a6118;}
+.tag.disagree{background:var(--brick);color:#fff;}
+.field{font-size:13.5px;margin:6px 0;}
+.field b{font-weight:600;color:var(--ink);}
+.chiprow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{
+  font-size:11px;border:1px solid var(--line-strong);border-radius:12px;
+  padding:2px 9px;color:var(--ink-soft);
+}
+.chip.stake{border-color:rgba(62,124,127,0.4);}
+.chip.ben{border-color:rgba(177,75,63,0.35);}
+.icard-foot{
+  margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#9aa2ae;
+  display:flex;justify-content:space-between;
+}
+
+.filter-panel{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:36px;
+  align-items:start;
+}
+.filter-side{
+  position:sticky;top:76px;
+  border:1px solid var(--line);
+  background:var(--paper-raised);
+  border-radius:4px;
+  padding:20px;
+}
+.filter-group{margin-bottom:20px;}
+.filter-group:last-child{margin-bottom:0;}
+.filter-group h4{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--ink-soft);margin:0 0 10px;
+}
+.filter-opts{display:flex;flex-wrap:wrap;gap:6px;}
+.fchip{
+  font-size:11.5px;
+  border:1px solid var(--line-strong);
+  border-radius:14px;
+  padding:5px 11px;
+  cursor:pointer;
+  background:var(--paper);
+  color:var(--ink-soft);
+}
+.fchip.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.search-input{
+  width:100%;
+  border:1px solid var(--line-strong);
+  border-radius:3px;
+  padding:9px 11px;
+  font-family:'Inter',sans-serif;
+  font-size:13px;
+  background:var(--paper);
+  color:var(--ink);
+  margin-bottom:4px;
+}
+.search-input:focus{outline:none;border-color:var(--teal);}
+.reset-link{
+  background:none;border:none;cursor:pointer;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--brick);padding:0;margin-top:14px;text-decoration:underline;
+}
+.result-count{
+  font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft);
+  margin-bottom:16px;
+}
+.explorer-list{display:flex;flex-direction:column;gap:12px;max-height:900px;overflow-y:auto;padding-right:6px;}
+.icard .qref{
+  font-size:11px;color:var(--teal);font-family:'IBM Plex Mono',monospace;margin-bottom:8px;display:block;
+}
+
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,20,85,0.5);
+  display:none;align-items:center;justify-content:center;z-index:100;padding:24px;
+}
+.modal-overlay.show{display:flex;}
+.modal{
+  background:var(--paper-raised);
+  max-width:760px;width:100%;max-height:82vh;overflow-y:auto;
+  border-radius:6px;padding:32px 36px;position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,0.25);
+}
+.modal-close{
+  position:absolute;top:20px;right:24px;background:none;border:none;font-size:22px;
+  cursor:pointer;color:var(--ink-soft);line-height:1;
+}
+.modal h3{font-family:'Inter',sans-serif;font-size:24px;margin:0 0 6px;}
+.modal-sub{color:var(--ink-soft);font-size:13.5px;margin-bottom:26px;}
+.gloss-cat{margin-bottom:22px;}
+.gloss-cat h5{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--teal);border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:10px;
+}
+.gloss-item{margin-bottom:9px;font-size:13.5px;}
+.gloss-item b{font-weight:600;}
+.gloss-item span{color:var(--ink-soft);}
+
+footer{
+  padding:36px 0 60px;
+  text-align:center;
+  color:var(--ink-soft);
+  font-size:12.5px;
+}
+footer .mono{color:#9aa2ae;}
+
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr;}
+  .overview-grid{grid-template-columns:1fr;}
+  .filter-panel{grid-template-columns:1fr;}
+  .filter-side{position:static;}
+  .wrap{padding:0 18px;}
+  .navlinks{display:none;}
+  .section-dashboard{grid-template-columns: 1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="brand">Mapping Youth Voices</div>
+    <div class="navlinks">
+      <a href="#overview">Overview</a>
+      <a href="#questions">By Question</a>
+      <a href="#explore">Explore All</a>
+    </div>
+    <button class="glossary-btn" id="glossaryBtn">Glossary ↗</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">UNESCO · Europe &amp; North America Region</div>
+        <h1 class="title">What young people told<br>us <em>should come next.</em></h1>
+        <p class="hero-sub">A structured synthesis of the ENA regional youth consultation - every contribution coded by theme, distilled into a recommendation, and linked back to the original words it came from.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="num" id="statSegments">-</div><div class="lbl">Coded segments</div></div>
+          <div class="stat"><div class="num" id="statQuestions">-</div><div class="lbl">Questions</div></div>
+          <div class="stat"><div class="num" id="statDomains">-</div><div class="lbl">Thematic domains</div></div>
+          <div class="stat"><div class="num">36</div><div class="lbl">Countries in ENA</div></div>
+        </div>
+      </div>
+      <div class="compass-card">
+        <div class="compass-title">Domain compass</div>
+        <svg id="compassChart" class="compass-svg" viewBox="0 0 360 360"></svg>
+        <div class="compass-caption">Share of all coded segments by thematic domain. Hover a wedge for detail.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="block" id="overview">
+  <div class="wrap">
+    <div class="block-head">
+      <div class="block-eyebrow">01 - Overview</div>
+      <h2 class="block-title">Who this is meant to reach, and who's asking</h2>
+      <p class="block-desc">Every coded segment names who should act (a stakeholder) and who benefits. Reading these two distributions side by side shows where responsibility and impact land.</p>
+    </div>
+    <div class="overview-grid">
+      <div>
+        <div class="compass-title" style="margin-bottom:14px;">Stakeholders called on to act</div>
+        <div class="bars" id="stakeBars"></div>
+      </div>
+      <div>
+        <div class="compass-title" style="margin-bottom:14px;">Who recommendations aim to benefit</div>
+        <div class="bars" id="benBars"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt" id="questions">
+  <div class="wrap">
+    <div class="block-head">
+      <div class="block-eyebrow">02 - Question by question</div>
+      <h2 class="block-title">Every question, every voice</h2>
+      <p class="block-desc">Browse by consultation section, then open a question to see how responses broke down by domain - and read each contribution in its own words.</p>
+    </div>
+    <div class="section-tabs" id="sectionTabs"></div>
+    <div class="section-dashboard">
+      <div class="compass-card">
+        <div class="compass-title">Section Domain Compass</div>
+        <svg id="sectionCompassChart" class="compass-svg" viewBox="0 0 360 360"></svg>
+        <div class="compass-caption">Domain breakdown for this specific section.</div>
+      </div>
+      <div id="questionList"></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="explore">
+  <div class="wrap">
+    <div class="block-head">
+      <div class="block-eyebrow">03 - Explore everything</div>
+      <h2 class="block-title">Filter across the full dataset</h2>
+      <p class="block-desc">Combine filters to trace a single thread - say, everything about Digital Technology aimed at Member States - across the entire consultation.</p>
+    </div>
+    <div class="filter-panel">
+      <aside class="filter-side">
+        <div class="filter-group">
+          <h4>Search</h4>
+          <input class="search-input" id="searchInput" type="text" placeholder="Search quotes, insights...">
+        </div>
+        <div class="filter-group">
+          <h4>Domain</h4>
+          <div class="filter-opts" id="fDomain"></div>
+        </div>
+        <div class="filter-group">
+          <h4>Recommendation type</h4>
+          <div class="filter-opts" id="fRec"></div>
+        </div>
+        <div class="filter-group">
+          <h4>Stakeholder</h4>
+          <div class="filter-opts" id="fStake"></div>
+        </div>
+        <div class="filter-group">
+          <h4>Beneficiary</h4>
+          <div class="filter-opts" id="fBen"></div>
+        </div>
+        <button class="reset-link" id="resetBtn">Reset all filters</button>
+      </aside>
+      <div>
+        <div class="result-count" id="resultCount"></div>
+        <div class="explorer-list" id="explorerList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Compiled for internal review · traceable to <span class="mono">Row_ID</span> in the source questionnaire analysis · UNESCO ENA Youth Consultation
+  </div>
+</footer>
+
+<div class="modal-overlay" id="glossaryModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <h3>Glossary</h3>
+    <p class="modal-sub">How each field was coded, for anyone auditing the synthesis.</p>
+    <div id="glossaryContent"></div>
+  </div>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
