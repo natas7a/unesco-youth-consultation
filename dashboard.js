@@ -333,6 +333,47 @@ fetch('data.json')
     document.getElementById('explorerList').addEventListener('scroll', function(){});
     renderExplorer();
 
+    // ---------- Summary Document View ----------
+    function renderSummary(){
+      const summaryContainer = document.getElementById('summaryContent');
+      if (!summaryContainer) return;
+
+      let html = '';
+      
+      STRUCT.forEach(sec => {
+        // Render Section Title
+        html += `<h2 style="font-family: 'Inter', sans-serif; font-size: 24px; color: var(--teal); margin-top: 40px; margin-bottom: 8px; border-bottom: 2px solid var(--line); padding-bottom: 8px;">${escapeHtml(sec.section)}</h2>`;
+        
+        sec.questions.forEach(q => {
+          // Render Question Title
+          html += `<h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; margin-top: 32px; margin-bottom: 16px; color: var(--ink);">${escapeHtml(q.question)}</h3>`;
+          
+          // Group items by domain for this specific question
+          const groupedByDomain = q.items.reduce((acc, item) => {
+            if (!acc[item.domain]) acc[item.domain] = [];
+            // Collect just the text segment
+            acc[item.domain].push(item.segment);
+            return acc;
+          }, {});
+
+          // Sort domains alphabetically to keep the reading experience consistent
+          Object.keys(groupedByDomain).sort().forEach(domain => {
+            // Render Domain Subheading
+            html += `<h4 style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: ${colorFor(domain, domainLabels)}; margin-top: 24px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">${escapeHtml(domain)}</h4>`;
+            
+            // Join all individual segments into a single flowing paragraph separated by spaces
+            const paragraphText = groupedByDomain[domain].map(escapeHtml).join(' ');
+            html += `<p style="font-family: 'Inter', sans-serif; font-size: 15px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 16px;">${paragraphText}</p>`;
+          });
+        });
+      });
+      
+      summaryContainer.innerHTML = html;
+    }
+    
+    // Call the function to build the document on load
+    renderSummary();
+
     // ---------- Glossary modal ----------
     const glossaryContent = document.getElementById('glossaryContent');
     glossaryContent.innerHTML = Object.entries(DEFS).map(([cat, items])=>{
