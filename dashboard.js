@@ -109,14 +109,48 @@ fetch('data.json')
         const ix1 = cx + rInner*Math.cos(a1), iy1 = cy + rInner*Math.sin(a1);
         const large = sweep > 180 ? 1 : 0;
         const color = colorFor(label, domainLabels);
+        
+        // Format the text once so we can use it in both the title tag and our new data attribute
+        const infoText = `${label}: ${count} segments (${(frac*100).toFixed(1)}%)`;
+        
         const path = `M ${ix0} ${iy0} L ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} L ${ix1} ${iy1} A ${rInner} ${rInner} 0 ${large} 0 ${ix0} ${iy0} Z`;
-        svgHtml += `<path class="compass-seg" d="${path}" fill="${color}" opacity="0.88"><title>${label}: ${count} segments (${(frac*100).toFixed(1)}%)</title></path>`;
+        
+        // Add data-info attribute for the click listener to grab
+        svgHtml += `<path class="compass-seg" d="${path}" fill="${color}" opacity="0.88" data-info="${infoText}">
+            <title>${infoText}</title>
+        </path>`;
         angle += sweep;
       });
       svgHtml += `<circle cx="${cx}" cy="${cy}" r="${rInner-2}" fill="var(--paper-raised)" stroke="var(--line)" />`;
       svgHtml += `<text x="${cx}" y="${cy-4}" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="var(--ink)">${totalItems}</text>`;
       svgHtml += `<text x="${cx}" y="${cy+16}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="var(--ink-soft)">SEGMENTS</text>`;
+      
       svg.innerHTML = svgHtml;
+
+      // --- NEW: Mobile Touch Support ---
+      // Grab the caption element right below the SVG
+      const captionDiv = svg.nextElementSibling;
+      const defaultCaption = "Share of all coded segments by thematic domain. Tap or hover a wedge for detail.";
+      
+      // Ensure the default text invites tapping
+      if(captionDiv && captionDiv.classList.contains('compass-caption')) {
+          captionDiv.innerText = defaultCaption;
+      }
+
+      // Add click listeners to every segment
+      svg.querySelectorAll('.compass-seg').forEach(seg => {
+        seg.addEventListener('click', (e) => {
+          if(captionDiv && captionDiv.classList.contains('compass-caption')) {
+            const info = e.currentTarget.getAttribute('data-info');
+            captionDiv.innerHTML = `<strong style="color: var(--teal);">${info}</strong>`;
+            
+            // Reset the text after 4 seconds
+            setTimeout(() => {
+                captionDiv.innerText = defaultCaption;
+            }, 4000);
+          }
+        });
+      });
     }
 
     // Draw the global compass immediately

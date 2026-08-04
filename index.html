@@ -359,12 +359,28 @@ footer{
 footer .mono{color:#9aa2ae;}
 
 @media (max-width:860px){
+
+  .topnav-inner {
+    flex-wrap: wrap; 
+    height: auto;
+    padding: 12px 18px;
+    gap: 12px;
+  }
+  
+  .navlinks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    order: 3; 
+    padding-top: 8px;
+  }
+  
   .hero-grid{grid-template-columns:1fr;}
   .overview-grid{grid-template-columns:1fr;}
   .filter-panel{grid-template-columns:1fr;}
   .filter-side{position:static;}
   .wrap{padding:0 18px;}
-  .navlinks{display:none;}
   .section-dashboard{grid-template-columns: 1fr;}
 }
 </style>
@@ -490,7 +506,7 @@ footer .mono{color:#9aa2ae;}
     <div class="block-head">
       <div class="block-eyebrow">04 - Summary Document</div>
       <h2 class="block-title">Linear Synthesis</h2>
-      <p class="block-desc">Read the synthesized responses grouped by thematic domain in a traditional, linear paragraph format.</p>
+      <p class="block-desc">This section contains all the sentences of the questionnaire document, just reorganised by category for easy reading. No actual "synthesis" has been done.</p>
     </div>
     <div id="summaryContent" style="background:var(--paper-raised); padding: 48px; border-radius: 4px; border: 1px solid var(--line); box-shadow: var(--shadow);">
       <!-- JavaScript will populate this -->
